@@ -38,7 +38,7 @@ Employee
 
                     <tbody>
                         @foreach ($data as $commo)
-                            <tr>
+                            <tr class="text-nowrap">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $commo->emp_name }}</td>
                                 <td>{{ $commo->emp_tel }}</td>
@@ -166,37 +166,9 @@ Employee
         $(document).ready(function() {
             $(document).ready(function() {
                 $('#dataTable').DataTable({
-
-                    "dom": "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
-                        "<'row'<'col-sm-12'tr>>" +
-                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                    "buttons": [{
-                            "extend": 'copy',
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-                        {
-                            "extend": 'excel',
-                            "exportOptions": {
-                                "stripHtml": false,
-                                'columns': [0, 1, 2, 3]
-
-                            },
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-                        {
-                            "extend": 'print',
-                            "exportOptions": {
-                                "stripHtml": false,
-                                'columns': [0, 1, 2, 3]
-
-                            },
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-
-                    ]
+                    "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
                 });
             });
             $(".name-button").click(function(event) {

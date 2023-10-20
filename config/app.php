@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Bangkok',  //Asia/Hong_Kong
+    'timezone' => 'Asia/Bangkok',  //Asia/Hong_Kong Bangkok
 
     /*
     |--------------------------------------------------------------------------

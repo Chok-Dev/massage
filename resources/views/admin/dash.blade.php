@@ -4,7 +4,7 @@
 @endsection
 @section('body')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <h1 class="h3 mb-0 text-gray-800">TODAY</h1>
     </div>
     <div class="row">
         <!-- Earnings (Monthly) Card Example -->
@@ -88,6 +88,9 @@
         </div>
 
 
+    </div>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">THIS MONTH</h1>
     </div>
     <div class="row">
         <!-- Earnings (Monthly) Card Example -->
@@ -325,9 +328,9 @@
 
                     @php(
                     $dataja = DB::table('queues')->LeftJoin('massages', 'queues.massage_id', '=', 'massages.id')
-                    ->select(DB::raw('sum(massages.massage_price) as price'),DB::raw('count(queues.id) as count'),DB::raw("(DATE_FORMAT(queues.start_time, '%m')) as month_year"))
-                    ->whereYear('queues.start_time', date('Y'))
-                    ->groupBy(DB::raw("DATE_FORMAT(queues.start_time, '%m')"))->get() 
+                    ->select(DB::raw('sum(massages.massage_price) as price'),DB::raw('count(queues.id) as count'),DB::raw("(DATE_FORMAT(queues.created_at, '%m')) as month_year"))
+                    ->whereYear('queues.created_at', date('Y'))
+                    ->groupBy(DB::raw("DATE_FORMAT(queues.created_at, '%m')"))->get() 
                     )
                     @foreach ($dataja as $value)
                         chart.data.labels.push(getMonthShortName({{ $value->month_year}}));
@@ -339,7 +342,6 @@
                 removeData(myLineChart)
                 setInterval(function() {
                     removeData(myLineChart)
-                    
                     //$("#myAreaChart").load(" #myAreaChart");
                     //$("#card1").load(" #card1");
                     //$("#card2").load(" #card2");

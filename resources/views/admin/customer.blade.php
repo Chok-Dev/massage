@@ -38,7 +38,7 @@ Customer
 {{-- {{ Haruncpi\LaravelIdGenerator\IdGenerator::generate(['table' => 'customers', 'length' => 8, 'prefix' => 'MS']) }} --}}
                     <tbody>
                         @foreach ($data as $commo)
-                            <tr>
+                            <tr class="text-nowrap">
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="user-select-all">{{ $commo->id }}</td>
                                 <td>{{ $commo->cus_name }}</td>
@@ -152,37 +152,7 @@ Customer
         $(document).ready(function() {
             $(document).ready(function() {
                 $('#dataTable').DataTable({
-
-                    "dom": "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
-                        "<'row'<'col-sm-12'tr>>" +
-                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                    "buttons": [{
-                            "extend": 'copy',
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-                        {
-                            "extend": 'excel',
-                            "exportOptions": {
-                                "stripHtml": false,
-                                'columns': [0, 1, 2, 3]
-
-                            },
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-                        {
-                            "extend": 'print',
-                            "exportOptions": {
-                                "stripHtml": false,
-                                'columns': [0, 1, 2, 3]
-
-                            },
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-
-                    ]
+                    "",
                 });
             });
             $(".name-button").click(function(event) {

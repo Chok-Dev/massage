@@ -37,7 +37,7 @@ Massage
 {{-- {{ Haruncpi\LaravelIdGenerator\IdGenerator::generate(['table' => 'customers', 'length' => 8, 'prefix' => 'MS']) }} --}}
                     <tbody>
                         @foreach ($data as $commo)
-                            <tr>
+                            <tr class="text-nowrap">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $commo->massage_name }}</td>
                                 <td>${{ $commo->massage_price }}</td>
@@ -157,14 +157,13 @@ Massage
                             .every(function() {
                                 var column = this;
                                 var select = $(
-                                    '<select class="form-select"><option value="">All</option></select>'
+                                    '<select class="form-select fter mx-2"><option value="">' +
+                                    column
+                                    .header().textContent +
+                                    ' (All)</option></select>'
                                 ).appendTo('#userstable_filter').on('change',
                                     function() {
-                                        var val = $.fn.dataTable.util.escapeRegex($(
-                                            this).val());
-
-                                        column.search(val ? '^' + val + '$' : '', true,
-                                            false).draw();
+                                        column.search($(this).val()).draw();
                                     });
 
                                 column
@@ -174,38 +173,21 @@ Massage
                                     .each(function(d, j) {
                                         select.append('<option>' + d + '</option>');
                                     });
+
+                            });
+                        var bt = $('<button class="btn btn-primary">Reset</button>').appendTo(
+                            '#userstable_filter').on('click',
+                            function() {
+                                $('.fter').val('');
+                                var table = $('#dataTable').DataTable();
+                                table.search('').columns().search('').draw();
+
                             });
                     },
-                    "dom": "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
-                        "<'row'<'col-sm-12'tr>>" +
-                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                    "buttons": [{
-                            "extend": 'copy',
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-                        {
-                            "extend": 'excel',
-                            "exportOptions": {
-                                "stripHtml": false,
-                                'columns': [0, 1, 2]
-
-                            },
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-                        {
-                            "extend": 'print',
-                            "exportOptions": {
-                                "stripHtml": false,
-                                'columns': [0, 1, 2]
-
-                            },
-                            "charset": 'utf-8',
-                            "className": 'btn btn-danger'
-                        },
-
-                    ]
+                    "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    
                 });
             });
             $(".name-button").click(function(event) {

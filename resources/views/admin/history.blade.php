@@ -48,7 +48,7 @@
 
                     <tbody>
                         @foreach ($data as $commo)
-                            <tr>
+                            <tr class="text-nowrap">
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="user-select-all">{{ $commo->cus_id }}</td>
                                 <td>{{ $commo->cus_name }}</td>
@@ -126,20 +126,19 @@
                 },
                 initComplete: function() {
                     this.api()
-                        .columns([2, 3, 5, 6])
-                        .every(function() {
-                            var column = this;
-                            console.log()
-                            if (column.index() != 6) {
+                            .columns([1,2,3,5,6])
+                            .every(function() {
+                               
+                                var column = this;
+                                if (column.index() != 6) {
                                 var select = $(
-                                    '<select class="form-select"><option value="">All</option></select>'
+                                    '<select class="form-select fter mx-2"><option value="">' +
+                                    column
+                                    .header().textContent +
+                                    ' (All)</option></select>'
                                 ).appendTo('#userstable_filter').on('change',
                                     function() {
-                                        var val = $.fn.dataTable.util.escapeRegex($(
-                                            this).val());
-
-                                        column.search(val ? '^' + val + '$' : '', true,
-                                            false).draw();
+                                        column.search($(this).val()).draw();
                                     });
 
                                 column
@@ -149,7 +148,7 @@
                                     .each(function(d, j) {
                                         select.append('<option>' + d + '</option>');
                                     });
-                            } else {
+                                } else {
                                 var select = $('<input type="date" class="form-control" id="min" name="min">').appendTo(
                                     '#min').on('change',
                                     function() {
@@ -159,40 +158,20 @@
                                             .draw();
                                     });
                             }
-                        });
+                            });
+                        var bt = $('<button class="btn btn-primary">Reset</button>').appendTo(
+                            '#userstable_filter').on('click',
+                            function() {
+                                $('.fter').val('');
+                                var table = $('#dataTable').DataTable();
+                                table.search('').columns().search('').draw();
+
+                            });
+                   
                 },
-
-
-                "dom": "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
-                    "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                "buttons": [{
-                        "extend": 'copy',
-                        "charset": 'utf-8',
-                        "className": 'btn btn-danger'
-                    },
-                    {
-                        "extend": 'excel',
-                        "exportOptions": {
-                            "stripHtml": false,
-
-                        },
-                        "charset": 'utf-8',
-                        "className": 'btn btn-danger'
-                    },
-                    {
-                        "extend": 'print',
-                        "exportOptions": {
-                            "stripHtml": false,
-
-
-                        },
-                        "charset": 'utf-8',
-                        "footer": true,
-                        "className": 'btn btn-danger'
-                    },
-
-                ]
+                "dom": "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
             });
 
             //setInterval(function() {

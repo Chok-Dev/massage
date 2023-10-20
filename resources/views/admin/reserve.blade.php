@@ -107,6 +107,7 @@
                                 container: "body"
                             });
                         }
+                        
                     },
                     eventDrop: function(info) {
                         //console.log(info.event.startStr)
@@ -124,6 +125,7 @@
                                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
                             },
                             success: function(response) {
+                                
                                 //console.log(response)
                                 //window.location.reload();
                             },
